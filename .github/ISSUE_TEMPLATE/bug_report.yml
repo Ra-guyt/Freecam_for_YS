@@ -1,0 +1,92 @@
+name: 不具合報告
+description: Freecam for YSの再現できる不具合を報告します
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        脆弱性や悪用手順は公開Issueへ書かず、SECURITY.mdに従って非公開で報告してください。
+        本名、メール、Windowsユーザー名、絶対パス、IP、トークン、UUID、座標、プレイヤー情報は削除してください。
+
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: 投稿前の確認
+      options:
+        - label: 管理者が指定したFreecam for YSを使用し、通常版FreecamやLegacyFreecamを併用していません
+          required: true
+        - label: 脆弱性の詳細や秘密情報を含めていません
+          required: true
+        - label: ログは必要な部分だけにし、個人情報やローカルパスを削除しました
+          required: true
+
+  - type: input
+    id: mod-version
+    attributes:
+      label: Freecam for YSのバージョン
+      placeholder: 例 1.0.2+mc1.21.10
+    validations:
+      required: true
+
+  - type: input
+    id: minecraft-version
+    attributes:
+      label: Minecraftのバージョン
+      placeholder: 例 1.21.10
+    validations:
+      required: true
+
+  - type: input
+    id: fabric-loader-version
+    attributes:
+      label: Fabric Loaderのバージョン
+    validations:
+      required: true
+
+  - type: input
+    id: fabric-api-version
+    attributes:
+      label: Fabric APIのバージョン
+    validations:
+      required: true
+
+  - type: input
+    id: java-version
+    attributes:
+      label: Javaのバージョン
+      placeholder: java -versionの先頭行から、個人情報を除いて記入
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 最小限の再現手順
+      description: 問題を再現するために必要な操作だけを書いてください
+      placeholder: |
+        1. Minecraftを起動する
+        2. F4を押す
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期待した動作
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: 実際の動作
+    validations:
+      required: true
+
+  - type: textarea
+    id: log
+    attributes:
+      label: 必要なログ部分
+      description: 全文ではなく、問題の前後だけを貼ってください。個人情報、絶対パス、IP、トークン、UUID、座標を必ず削除してください。
+      render: text

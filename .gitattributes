@@ -1,0 +1,9 @@
+* text=auto eol=lf
+
+gradlew text eol=lf
+*.bat text eol=crlf
+LICENSE text eol=lf
+NOTICE.md text eol=lf
+common/src/main/resources/assets/freecam_for_ys/lang/*.json text eol=lf
+*.png binary
+*.jar binary

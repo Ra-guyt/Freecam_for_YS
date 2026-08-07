@@ -1,0 +1,27 @@
+{
+  "required": true,
+  "package": "net.xolt.freecam.mixins",
+  "compatibilityLevel": "JAVA_21",
+  "minVersion": "0.8",
+  "client": [
+    "AvatarRendererMixin",
+    "BubbleColumnAmbientSoundHandlerMixin",
+    "CameraMixin",
+    "ClientPacketListenerMixin",
+    "EntityMixin",
+    "EntityRenderDispatcherMixin",
+    "GameRendererMixin",
+    "GuiMixin",
+    "IrisHandRendererMixin",
+    "IrisShadowRendererMixin",
+    "ItemInHandRendererMixin",
+    "LightTextureMixin",
+    "LivingEntityMixin",
+    "MinecraftMixin",
+    "MultiPlayerGameModeMixin",
+    "OptionsMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "net.xolt.freecam.fabric.mixins",
+  "compatibilityLevel": "JAVA_21",
+  "minVersion": "0.8",
+  "client": [
+    "GameRendererWatermarkMixin",
+    "LevelRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
