@@ -21,12 +21,12 @@ YSサーバーでの撮影・配信・コンテンツ制作のために、安全
 
 ## 3. 対応環境
 
-- Minecraft Java Edition 1.21.10
-- Java 21
-- Fabric Loader 0.17.0以上
-- Minecraft 1.21.10用Fabric API
+- Minecraft Java Edition 26.2
+- Java 25
+- Fabric Loader 0.19.3以上
+- Minecraft 26.2用Fabric API 0.161.0以上
 - MOD ID: `freecam_for_ys`
-- 対応バージョン: `1.0.2+mc1.21.10`
+- 対応バージョン: `1.0.3+mc26.2`
 
 ## 4. ダウンロード
 
@@ -42,9 +42,9 @@ GitHubが自動で表示する `Source code (zip)` と `Source code (tar.gz)` �
 
 ## 5. 導入方法
 
-1. Minecraft 1.21.10用のFabric LoaderとFabric APIを用意します。
+1. Minecraft 26.2用のFabric LoaderとFabric APIを用意します。
 2. `mods`フォルダーに通常版Freecam、LegacyFreecam、ほかのFreecamがある場合は取り除きます。
-3. ダウンロードした `freecam_for_ys-fabric-1.0.2+mc1.21.10.jar` を`mods`フォルダーへ入れます。
+3. ダウンロードした `freecam_for_ys-fabric-1.0.3+mc26.2.jar` を`mods`フォルダーへ入れます。
 4. Minecraftを起動します。
 5. `F4`を押し、画面右下にYSロゴと `Freecam for YS` が表示されれば導入完了です。
 

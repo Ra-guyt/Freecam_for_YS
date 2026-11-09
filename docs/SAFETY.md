@@ -38,7 +38,7 @@ ores/entities.
 
 ## Verification checklist
 
-1. Run `clean :common:test :fabric:build` with Java 21.
+1. Run `clean test build` with Java 25 and `runClientGameTest` for runtime coverage.
 2. Confirm the four boundary unit tests pass.
 3. Run a client and verify F4 activation, movement collision, and automatic
    return at the 50-block boundary.

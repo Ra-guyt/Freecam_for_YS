@@ -26,7 +26,7 @@ public enum ModBindings {
             .holdAction(Freecam::resetTripodHandler)
             .build()),
     KEY_CONFIG_GUI(() -> builder("configGui")
-            .action(() -> MC.setScreen(AutoConfig.getConfigScreen(ModConfig.class, MC.screen).get()))
+            .action(() -> MC.gui.setScreen(me.shedaniel.autoconfig.AutoConfigClient.getConfigScreen(ModConfig.class, MC.gui.screen()).get()))
             .build());
 
     private final Supplier<FreecamKeyMapping> lazyMapping;

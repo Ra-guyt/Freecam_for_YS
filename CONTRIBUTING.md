@@ -4,7 +4,7 @@ Freecam for YSへの提案や修正ありがとうございます。このプロ
 
 ## 開発環境
 
-- Java 21
+- Java 25
 - Git
 - WindowsではPowerShell、Linux/macOSでは任意のターミナル
 
@@ -12,7 +12,7 @@ Freecam for YSへの提案や修正ありがとうございます。このプロ
 
 ```powershell
 java -version
-.\gradlew.bat clean :common:test :fabric:build --console=plain
+.\gradlew.bat clean test build --console=plain
 git diff --check
 ```
 
@@ -21,8 +21,8 @@ Linux/macOSでは `./gradlew` を使用します。成果物は `build/libs/` �
 ## Pull Request
 
 1. 変更の目的を1つに絞ります。
-2. Java 21でビルドとテストを実行します。
-3. 安全制限、MOD ID、Minecraft 1.21.10、Fabric対応を意図せず変えていないか確認します。
+2. Java 25でビルドとテストを実行します。
+3. 安全制限、MOD ID、Minecraft 26.2、Fabric対応を意図せず変えていないか確認します。
 4. 変更理由、確認方法、確認できていないことをPull Requestへ記載します。
 5. 必要な場合だけバージョンを更新します。
 

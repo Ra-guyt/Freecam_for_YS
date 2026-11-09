@@ -3,7 +3,7 @@ package net.xolt.freecam.config.gui;
 import com.google.common.util.concurrent.AtomicDouble;
 import com.mojang.blaze3d.platform.Window;
 import me.shedaniel.clothconfig2.gui.entries.TooltipListEntry;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
@@ -92,8 +92,8 @@ class DoubleSliderEntry extends TooltipListEntry<Double> {
     }
 
     @Override
-    public void render(GuiGraphics graphics, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean isHovered, float delta) {
-        super.render(graphics, index, y, x, entryWidth, entryHeight, mouseX, mouseY, isHovered, delta);
+    public void extractRenderState(GuiGraphicsExtractor graphics, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean isHovered, float delta) {
+        super.extractRenderState(graphics, index, y, x, entryWidth, entryHeight, mouseX, mouseY, isHovered, delta);
         Window window = MC.getWindow();
         resetButton.active = isEditable() && getDefaultValue().isPresent() && defaultValue.get() != value.get();
         resetButton.setY(y);
@@ -102,18 +102,18 @@ class DoubleSliderEntry extends TooltipListEntry<Double> {
 
         Component name = getDisplayedFieldName();
         if (MC.font.isBidirectional()) {
-            graphics.drawString(MC.font, name.getVisualOrderText(), window.getGuiScaledWidth() - x - MC.font.width(name), y + 6, getPreferredTextColor());
+            graphics.text(MC.font, name.getVisualOrderText(), window.getGuiScaledWidth() - x - MC.font.width(name), y + 6, getPreferredTextColor());
             resetButton.setX(x);
             sliderWidget.setX(x + resetButton.getWidth() + 1);
         } else {
-            graphics.drawString(MC.font, name.getVisualOrderText(), x, y + 6, getPreferredTextColor());
+            graphics.text(MC.font, name.getVisualOrderText(), x, y + 6, getPreferredTextColor());
             resetButton.setX(x + entryWidth - resetButton.getWidth());
             sliderWidget.setX(x + entryWidth - 150);
         }
 
         sliderWidget.setWidth(150 - resetButton.getWidth() - 2);
-        resetButton.render(graphics, mouseX, mouseY, delta);
-        sliderWidget.render(graphics, mouseX, mouseY, delta);
+        resetButton.extractRenderState(graphics, mouseX, mouseY, delta);
+        sliderWidget.extractRenderState(graphics, mouseX, mouseY, delta);
     }
 
     private final class Slider extends AbstractSliderButton {

@@ -2,9 +2,9 @@ package net.xolt.freecam.fabric;
 
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.xolt.freecam.Freecam;
 import org.joml.Matrix3x2fStack;
 
@@ -16,7 +16,7 @@ import org.joml.Matrix3x2fStack;
 public final class WatermarkRenderer {
 
     private static final String TEXT = "Freecam for YS";
-    private static final ResourceLocation WATERMARK_SPRITE = ResourceLocation.fromNamespaceAndPath(
+    private static final Identifier WATERMARK_SPRITE = Identifier.fromNamespaceAndPath(
             Freecam.MOD_ID,
             "watermark"
     );
@@ -32,7 +32,7 @@ public final class WatermarkRenderer {
     private WatermarkRenderer() {
     }
 
-    public static void render(GuiGraphics graphics, DeltaTracker tickCounter) {
+    public static void render(GuiGraphicsExtractor graphics, DeltaTracker tickCounter) {
         if (!Freecam.isEnabled()) {
             return;
         }
@@ -57,7 +57,7 @@ public final class WatermarkRenderer {
         pose.pushMatrix();
         pose.translate(x + LOGO_SIZE + GAP, y + TEXT_Y_OFFSET);
         pose.scale(TEXT_SCALE, TEXT_SCALE);
-        graphics.drawString(font, TEXT, 0, 0, TEXT_COLOR, false);
+        graphics.text(font, TEXT, 0, 0, TEXT_COLOR, false);
         pose.popMatrix();
     }
 }

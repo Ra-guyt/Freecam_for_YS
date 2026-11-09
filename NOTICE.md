@@ -5,6 +5,10 @@ Freecam for YS is an independently maintained fork of
 tag `v1.3.5+mc1.21.10` at commit
 `770ad08a36ed76abe57f6c5733ba212105898e15`.
 
+The Minecraft 26.2 port also refers to the MIT-licensed upstream project's
+26.2 compatibility implementations for camera, HUD, hand rendering and lightmap APIs
+at commit `3830872a38e5cf798727958117408ff91bf9e4cc`.
+
 The upstream source and this fork's source code are distributed under the MIT
 License included in `LICENSE`.
 

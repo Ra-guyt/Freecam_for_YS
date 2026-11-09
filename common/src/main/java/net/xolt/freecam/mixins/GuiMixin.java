@@ -8,10 +8,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static net.xolt.freecam.Freecam.MC;
 
-import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.Hud;
 import net.minecraft.world.entity.player.Player;
 
-@Mixin(Gui.class)
+@Mixin(Hud.class)
 public class GuiMixin {
     // Makes HUD correspond to the player rather than the FreeCamera.
     @Inject(method = "getCameraPlayer", at = @At("HEAD"), cancellable = true)

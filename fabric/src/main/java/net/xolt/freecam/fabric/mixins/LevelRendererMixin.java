@@ -5,7 +5,7 @@ import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
-import net.minecraft.client.renderer.state.LevelRenderState;
+import net.minecraft.client.renderer.state.level.LevelRenderState;
 import net.minecraft.world.TickRateManager;
 import net.minecraft.world.entity.Entity;
 import net.xolt.freecam.Freecam;
@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static net.xolt.freecam.Freecam.MC;
 
-@Mixin(LevelRenderer.class)
+@Mixin(net.minecraft.client.renderer.extract.LevelExtractor.class)
 public abstract class LevelRendererMixin {
 
     @Shadow protected abstract EntityRenderState extractEntity(Entity e, float g);

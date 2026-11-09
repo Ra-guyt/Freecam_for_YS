@@ -18,8 +18,8 @@ public class CameraMixin {
     @Shadow private float eyeHeight;
 
     // When toggling freecam, update the camera's eye height instantly without any transition.
-    @Inject(method = "setup", at = @At("HEAD"))
-    public void onUpdate(BlockGetter area, Entity newFocusedEntity, boolean thirdPerson, boolean inverseView, float tickDelta, CallbackInfo ci) {
+    @Inject(method = "setEntity", at = @At("HEAD"))
+    public void onUpdate(Entity newFocusedEntity, CallbackInfo ci) {
         if (newFocusedEntity == null || this.entity == null || newFocusedEntity.equals(this.entity)) {
             return;
         }

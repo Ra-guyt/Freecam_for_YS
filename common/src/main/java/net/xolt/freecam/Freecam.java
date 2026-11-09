@@ -6,7 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.player.ClientInput;
 import net.minecraft.client.player.KeyboardInput;
-import net.minecraft.client.renderer.texture.Tickable;
+import java.lang.Runnable;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Input;
@@ -67,7 +67,7 @@ public class Freecam {
         if (isEnabled()) {
             enforceCameraSafety();
         }
-        ModBindings.forEach(Tickable::tick);
+        ModBindings.forEach(Runnable::run);
     }
 
     @ApiStatus.Internal
@@ -190,7 +190,7 @@ public class Freecam {
         activeTripod = tripod;
 
         if (ModConfig.INSTANCE.notification.notifyTripod) {
-            MC.player.displayClientMessage(Component.translatable("msg.freecam_for_ys.openTripod", tripod), true);
+            MC.gui.hud.setOverlayMessage(Component.translatable("msg.freecam_for_ys.openTripod", tripod), true);
         }
         return true;
     }
@@ -203,7 +203,7 @@ public class Freecam {
         onDisable();
 
         if (MC.player != null && ModConfig.INSTANCE.notification.notifyTripod) {
-            MC.player.displayClientMessage(Component.translatable("msg.freecam_for_ys.closeTripod", closingTripod), true);
+            MC.gui.hud.setOverlayMessage(Component.translatable("msg.freecam_for_ys.closeTripod", closingTripod), true);
         }
         activeTripod = TripodSlot.NONE;
     }
@@ -225,7 +225,7 @@ public class Freecam {
         MC.setCameraEntity(freeCamera);
 
         if (ModConfig.INSTANCE.notification.notifyFreecam) {
-            MC.player.displayClientMessage(
+            MC.gui.hud.setOverlayMessage(
                     Component.translatable("msg.freecam_for_ys.enable", MAX_CAMERA_DISTANCE_BLOCKS),
                     true
             );
@@ -236,7 +236,7 @@ public class Freecam {
     private static void onDisableFreecam() {
         onDisable();
         if (MC.player != null && ModConfig.INSTANCE.notification.notifyFreecam) {
-            MC.player.displayClientMessage(Component.translatable("msg.freecam_for_ys.disable"), true);
+            MC.gui.hud.setOverlayMessage(Component.translatable("msg.freecam_for_ys.disable"), true);
         }
     }
 
@@ -245,7 +245,7 @@ public class Freecam {
         if (rememberedF5 == null) {
             rememberedF5 = MC.options.getCameraType();
         }
-        if (MC.gameRenderer.getMainCamera().isDetached()) {
+        if (MC.gameRenderer.mainCamera().isDetached()) {
             MC.options.setCameraType(CameraType.FIRST_PERSON);
         }
     }
@@ -304,7 +304,7 @@ public class Freecam {
         }
 
         if (MC.player != null && ModConfig.INSTANCE.notification.notifyTripod) {
-            MC.player.displayClientMessage(Component.translatable("msg.freecam_for_ys.tripodReset", tripod), true);
+            MC.gui.hud.setOverlayMessage(Component.translatable("msg.freecam_for_ys.tripodReset", tripod), true);
         }
     }
 
@@ -388,7 +388,7 @@ public class Freecam {
         }
 
         var chunk = position.getChunkPos();
-        if (!MC.level.getChunkSource().hasChunk(chunk.x, chunk.z)) {
+        if (!MC.level.getChunkSource().hasChunk(chunk.x(), chunk.z())) {
             return MoveRejection.UNLOADED;
         }
         return MoveRejection.NONE;
@@ -435,7 +435,7 @@ public class Freecam {
             case NONE -> null;
         };
         if (message != null) {
-            MC.player.displayClientMessage(message, true);
+            MC.gui.hud.setOverlayMessage(message, true);
             rejectionNoticeCooldown = 40;
         }
     }
@@ -443,7 +443,7 @@ public class Freecam {
     private static void notifyRestricted(boolean enabled) {
         ServerData server = MC.getCurrentServer();
         if (enabled && MC.player != null && server != null) {
-            MC.player.displayClientMessage(
+            MC.gui.hud.setOverlayMessage(
                     Component.translatable("msg.freecam_for_ys.restrictedByConfig", server.ip),
                     true
             );

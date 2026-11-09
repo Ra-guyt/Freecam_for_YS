@@ -29,7 +29,7 @@ public class AutoConfigExtensions {
     private AutoConfigExtensions() {}
 
     public static void apply(Class<? extends ConfigData> configClass) {
-        GuiRegistry registry = AutoConfig.getGuiRegistry(configClass);
+        GuiRegistry registry = me.shedaniel.autoconfig.AutoConfigClient.getGuiRegistry(configClass);
 
         ModBindingsConfigImpl.apply(registry);
         BoundedContinuousImpl.apply(registry);

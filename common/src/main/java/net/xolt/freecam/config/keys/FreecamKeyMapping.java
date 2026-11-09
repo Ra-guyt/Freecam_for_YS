@@ -2,22 +2,22 @@ package net.xolt.freecam.config.keys;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
-import net.minecraft.client.renderer.texture.Tickable;
-import net.minecraft.resources.ResourceLocation;
+import java.lang.Runnable;
+import net.minecraft.resources.Identifier;
 import net.xolt.freecam.Freecam;
 
 import java.util.function.Consumer;
 
-public class FreecamKeyMapping extends KeyMapping implements Tickable {
+public class FreecamKeyMapping extends KeyMapping implements Runnable {
 
     private static final Category FREECAM_CATEGORY = Category.register(
-            ResourceLocation.fromNamespaceAndPath(Freecam.MOD_ID, "freecam")
+            Identifier.fromNamespaceAndPath(Freecam.MOD_ID, "freecam")
     );
 
     private final Consumer<FreecamKeyMapping> onTick;
 
     /**
-     * @apiNote should only be used if overriding {@link #tick()}
+     * @apiNote should only be used if overriding {@link #run()}
      */
     protected FreecamKeyMapping(String translationKey, InputConstants.Type type, int code) {
         this(translationKey, type, code, null);
@@ -29,7 +29,7 @@ public class FreecamKeyMapping extends KeyMapping implements Tickable {
     }
 
     @Override
-    public void tick() {
+    public void run() {
         onTick.accept(this);
     }
 

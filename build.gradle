@@ -1,110 +1,57 @@
 plugins {
-    id "architectury-plugin" version "3.4.164"
-    id "dev.architectury.loom" version "1.11.458" apply false
-    id "com.github.johnrengelman.shadow" version "8.1.1" apply false
+    id 'net.fabricmc.fabric-loom' version '1.17.21'
 }
 
-tasks.named("wrapper") {
-    distributionType = "all"
-    gradleVersion = "8.11"
+version = "${mod_version}+mc${minecraft_version}"
+group = maven_group
+base { archivesName = 'freecam_for_ys-fabric' }
+repositories {
+    mavenCentral()
+    maven { url = 'https://maven.shedaniel.me/' }
+    maven { url = 'https://maven.terraformersmc.com/' }
+}
+dependencies {
+    minecraft "com.mojang:minecraft:${minecraft_version}"
+    implementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
+    implementation "com.terraformersmc:modmenu:${modmenu_version}"
+    implementation("me.shedaniel.cloth:cloth-config-fabric:${cloth_version}") {
+        exclude group: 'net.fabricmc.fabric-api'
+    }
+    include "me.shedaniel.cloth:cloth-config-fabric:${cloth_version}"
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+sourceSets {
+    main {
+        java.srcDirs = ['common/src/main/java', 'fabric/src/main/java']
+        resources.srcDirs = ['common/src/main/resources', 'fabric/src/main/resources', 'metadata/src/fabric']
+    }
+    test { java.srcDirs = ['common/src/test/java'] }
+}
+processResources {
+    def props = [mod_id: 'freecam_for_ys', version: project.version, mod_name: mod_name,
+                 json_authors: authors.split(',').collect { '"' + it + '"' }.join(', '),
+                 description: project.description, licence: licence, homepage_url: homepage_url,
+                 source_code_url: source_code_url, issue_tracker_url: issue_tracker_url,
+                 fabric_loader_req: fabric_loader_req, fabric_mc_req: fabric_mc_req]
+    inputs.properties props
+    filesMatching('fabric.mod.json') { expand props }
+}
+java { toolchain.languageVersion = JavaLanguageVersion.of(25); withSourcesJar() }
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8'; options.release = 25 }
+test { useJUnitPlatform() }
+jar { from('LICENSE'); from('NOTICE.md') }
+tasks.withType(AbstractArchiveTask).configureEach {
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
 }
 
-afterEvaluate {
-    tasks.jar.enabled = false
-    tasks.sourcesJar.enabled = false
-}
-
-architectury {
-    minecraft = rootProject.minecraft_version
-}
-
-allprojects {
-    apply plugin: "java"
-    apply plugin: "architectury-plugin"
-    apply plugin: "maven-publish"
-
-    version = "${project.mod_version}+mc${project.minecraft_version}"
-    group = rootProject.maven_group
-
-    base {
-        archivesName = rootProject.name + project.path.replaceAll(":", "-")
-    }
-
-    repositories {
-        mavenCentral()
-        maven { url "https://maven.parchmentmc.org/" }
-        maven { url "https://maven.shedaniel.me/" }
-        maven { url "https://maven.terraformersmc.com/" }
-    }
-
-    def javaVersion = 21
-    def javaLanguageVersion = JavaLanguageVersion.of(javaVersion)
-
-    tasks.withType(JavaCompile).configureEach {
-        options.encoding = "UTF-8"
-        options.release = javaVersion
-    }
-
-    tasks.withType(JavaExec).configureEach {
-        javaLauncher.set(javaToolchains.launcherFor {
-            languageVersion = javaLanguageVersion
-        })
-    }
-
-    java {
-        toolchain {
-            languageVersion = javaLanguageVersion
-        }
-        withSourcesJar()
-    }
-
-    jar {
-        from rootProject.file("LICENSE")
-        from rootProject.file("NOTICE.md")
-    }
-
-    // Make release archives byte-for-byte reproducible across clean checkouts.
-    tasks.withType(org.gradle.api.tasks.bundling.AbstractArchiveTask).configureEach {
-        preserveFileTimestamps = false
-        reproducibleFileOrder = true
-    }
-}
-
-subprojects {
-    apply plugin: "dev.architectury.loom"
-
-    loom {
-        accessWidenerPath = project(":common").file("src/main/resources/freecam.accesswidener")
-
-        runs {
-            client {
-                configName "Run Freecam for YS"
-            }
-            remove server
-        }
-
-        silentMojangMappingsLicense()
-    }
-
-    dependencies {
-        def parchmentAppendix = rootProject.parchment_version.split("-")[0]
-        def parchmentVersion = rootProject.parchment_version.split("-")[1]
-
-        minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
-        mappings loom.layered() {
-            officialMojangMappings()
-            parchment("org.parchmentmc.data:parchment-${parchmentAppendix}:${parchmentVersion}@zip")
-        }
-    }
-
-    publishing {
-        repositories {
-            mavenLocal()
-        }
-        publications {
-            maven(MavenPublication) {
-                from components.java
-            }
-        }
+fabricApi {
+    configureTests {
+        createSourceSet = true
+        modId = 'freecam_for_ys_test'
+        enableGameTests = false
+        enableClientGameTests = true
     }
 }

@@ -22,7 +22,7 @@ class FreecamComboKeyMapping extends FreecamKeyMapping {
     }
 
     @Override
-    public void tick() {
+    public void run() {
         // Bump tick counters
         sinceLastUse++;
         sinceLastPress++;
