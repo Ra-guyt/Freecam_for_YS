@@ -35,7 +35,7 @@ public class MinecraftMixin {
         }
     }
 
-    @Inject(method = "pickBlock", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "pickBlockOrEntity", at = @At("HEAD"), cancellable = true)
     private void onPickBlock(CallbackInfo ci) {
         if (Freecam.isEnabled()) {
             ci.cancel();
@@ -55,7 +55,7 @@ public class MinecraftMixin {
         }
     }
 
-    @Inject(method = "disconnect", at = @At("HEAD"))
+    @Inject(method = "disconnect*", at = @At("HEAD"))
     private void onDisconnect(CallbackInfo ci) {
         Freecam.onDisconnect();
     }

@@ -42,7 +42,7 @@ public class FreeCamera extends LocalPlayer {
                     // localGameProfile
                     new GameProfile(UUID.randomUUID(), "FreeCamera"),
                     // worldSessionTelemetryManager
-                    MC.getTelemetryManager().createWorldSessionManager(false, null, null),
+                    MC.getTelemetryManager().createWorldSessionManager(false, null, null, null),
                     // receivedRegistries
                     MC.player.registryAccess().freeze(),
                     // enabledFeatures
@@ -71,11 +71,10 @@ public class FreeCamera extends LocalPlayer {
     };
 
     public FreeCamera(int id) {
-        super(MC, MC.level, NETWORK_HANDLER, MC.player.getStats(), MC.player.getRecipeBook(), Input.EMPTY, false);
+        super(MC, MC.level, NETWORK_HANDLER, MC.player.getStats(), MC.player.getRecipeBook(), Input.EMPTY, false, MC.player.chatAbilities());
 
         setId(id);
         setPose(Pose.SWIMMING);
-        setClientLoaded(true); // Otherwise input is frozen until timeout
         getAbilities().flying = true;
         input = new KeyboardInput(MC.options);
     }
@@ -184,7 +183,7 @@ public class FreeCamera extends LocalPlayer {
             return false;
         }
         var chunk = position.getChunkPos();
-        return MC.level.getChunkSource().hasChunk(chunk.x, chunk.z);
+        return MC.level.getChunkSource().hasChunk(chunk.x(), chunk.z());
     }
 
     public void spawn() {

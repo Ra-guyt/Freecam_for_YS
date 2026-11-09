@@ -20,6 +20,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(MultiPlayerGameMode.class)
 public class MultiPlayerGameModeMixin {
 
+    @Inject(method = "piercingAttack", at = @At("HEAD"), cancellable = true)
+    private void freecamForYs$blockPiercingAttack(CallbackInfo ci) {
+        if (Freecam.isEnabled()) ci.cancel();
+    }
+
     @Inject(method = "destroyBlock", at = @At("HEAD"), cancellable = true)
     private void onDestroyBlock(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
         if (Freecam.isEnabled()) {
@@ -72,18 +77,6 @@ public class MultiPlayerGameModeMixin {
     }
 
     @Inject(method = "interact", at = @At("HEAD"), cancellable = true)
-    private void onInteract(
-            Player player,
-            Entity entity,
-            InteractionHand hand,
-            CallbackInfoReturnable<InteractionResult> cir
-    ) {
-        if (Freecam.isEnabled()) {
-            cir.setReturnValue(InteractionResult.PASS);
-        }
-    }
-
-    @Inject(method = "interactAt", at = @At("HEAD"), cancellable = true)
     private void onInteractAt(
             Player player,
             Entity entity,

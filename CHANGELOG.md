@@ -1,6 +1,13 @@
 # Changelog
 
-## 1.0.2 - Unreleased
+## 1.0.3 - 2026-11-09
+
+- Minecraft 26.2 / Fabric / Java 25へ対応
+- 26.2の描画・GUI・入力APIへ移植し、F1でもウォーターマークを表示
+- 50ブロック制限、衝突判定、操作遮断、安全終了条件を維持
+- Fabric Loomの単一Fabricビルドへ整理
+
+## 1.0.2 - 2026-08-08
 
 ### Changed
 

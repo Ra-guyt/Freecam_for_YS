@@ -5,7 +5,7 @@
   "name": "${mod_name}",
   "description": "${description}",
   "authors": [
-    ${json_authors}
+    "hashalite", "Matt Sturgeon", "YS Server"
   ],
   "contact": {
     "homepage": "${homepage_url}",
@@ -29,7 +29,8 @@
   ],
   "depends": {
     "fabricloader": "${fabric_loader_req}",
-    "fabric": "*",
+    "fabric-api": ">=0.161.0",
+    "java": ">=25",
     "minecraft": "${fabric_mc_req}"
   },
   "breaks": {

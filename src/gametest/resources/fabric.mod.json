@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "id": "freecam_for_ys_test",
+  "version": "1.0.0",
+  "environment": "client",
+  "entrypoints": {
+    "fabric-client-gametest": ["net.xolt.freecam.test.FreecamClientTest"]
+  }
+}
